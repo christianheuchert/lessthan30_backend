@@ -1,20 +1,15 @@
-#!/bin/bash
-
 TOKEN=604448b89ff23b821b78a1bb17503bd13b6d9ba5
-NAME=Willy
-COLOR=Green
-RIPE=True
+WORD=Word3
+ID=1
 
-curl "http://localhost:8000/mangos/" \
+curl "http://localhost:8000/poems/${ID}/words/" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
   --header "Authorization: Token ${TOKEN}" \
   --data '{
-    "mango": {
-      "name": "'"${NAME}"'",
-      "color": "'"${COLOR}"'",
-      "ripe": "'"${RIPE}"'"
+    "word": {
+      "word": "'"${WORD}"'"
     }
   }'
 

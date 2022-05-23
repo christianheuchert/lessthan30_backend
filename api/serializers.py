@@ -1,13 +1,25 @@
 from django.contrib.auth import get_user_model
+from api.models.poem import Word
 from rest_framework import serializers
 
 from .models.mango import Mango
 from .models.user import User
+from .models.poem import Poem, Word
 
 class MangoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mango
         fields = ('id', 'name', 'color', 'ripe', 'owner')
+
+class PoemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Poem
+        fields = ('id', 'title', 'owner')
+
+class WordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Word
+        fields = ('id', 'word', 'poem')
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
