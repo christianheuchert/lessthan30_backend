@@ -10,7 +10,6 @@ from api.models import poem
 
 # Create your views here.
 class Words(generics.ListCreateAPIView):
-    permission_classes=(IsAuthenticated,)
     serializer_class = WordSerializer
     def get(self, request, pk):
         """Index request"""
@@ -35,7 +34,6 @@ class Words(generics.ListCreateAPIView):
         return Response(word.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class WordDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=(IsAuthenticated,)
 
     def delete(self, request, pk, sk):
         """Delete request"""

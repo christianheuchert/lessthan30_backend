@@ -14,12 +14,12 @@ class MangoSerializer(serializers.ModelSerializer):
 class PoemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poem
-        fields = ('id', 'title', 'owner')
+        fields = ('id', 'title', 'date', 'owner')
 
 class WordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Word
-        fields = ('id', 'word', 'poem')
+        fields = ('id', 'word', 'xcoordinate', 'ycoordinate', 'poem')
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation

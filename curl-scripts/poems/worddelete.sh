@@ -1,7 +1,7 @@
 #!/bin/bash
-TOKEN=604448b89ff23b821b78a1bb17503bd13b6d9ba5
-ID=1
-ID2=4
+TOKEN=dbeac9894e78810dd2fb9fe6cf2f7975f63a66ad
+ID=2
+ID2=2
 
 
 curl "http://localhost:8000/poems/${ID}/words/${ID2}/" \
