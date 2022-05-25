@@ -1,7 +1,7 @@
-TOKEN=01f6722fca2c6362e44eac70e51c5e5531f5989e
-WORD=Word4
+TOKEN=c8993fe61a40c6a21820c105af0733aedb3491de
+WORD=Word3
 ID=1
-X=0
+X=2
 Y=0
 
 curl "http://localhost:8000/poems/${ID}/words/" \
@@ -13,7 +13,7 @@ curl "http://localhost:8000/poems/${ID}/words/" \
     "word": {
       "word": "'"${WORD}"'",
       "xcoordinate": '${X}',
-      "ycoordinate": '${Y}',
+      "ycoordinate": '${Y}'
     }
   }'
 

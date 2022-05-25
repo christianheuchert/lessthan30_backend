@@ -1,5 +1,5 @@
-TOKEN=8ec3238ae7a84af5ffa2825151eec90d68f7f2db
-TITLE=Poem-Test4_with_date
+TOKEN=c8993fe61a40c6a21820c105af0733aedb3491de
+TITLE=Poem-Test3
 
 curl "http://localhost:8000/poems/" \
   --include \
