@@ -44,3 +44,13 @@ class WordDetail(generics.RetrieveUpdateDestroyAPIView):
         word.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# public words for public poems
+class PublicWords(generics.ListCreateAPIView):
+    serializer_class = WordSerializer
+    def get(self, request):
+        """Index request"""
+        # Locate the words from the poem
+        words = Word.objects
+        # serialize
+        data = WordSerializer(words, many=True).data
+        return Response({'words': data})

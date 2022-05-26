@@ -79,3 +79,12 @@ class PoemDetail(generics.RetrieveUpdateDestroyAPIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         # If the data is not valid, return a response with the errors
         return Response(data.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PublicPoems(generics.ListCreateAPIView):
+    def get(self, request):
+        """Index request"""
+        # Get all the poems:
+        poems = Poem.objects
+        # Run the data through the serializer
+        data = PoemSerializer(poems, many=True).data
+        return Response({ 'poems': data })
