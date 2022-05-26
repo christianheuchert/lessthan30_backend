@@ -5,6 +5,7 @@ from .views.word_views import Words, WordDetail, PublicWords
 from .views.Wordlist import WordList
 from .views.user_views import SignUp, SignIn, SignOut, ChangePassword
 
+
 urlpatterns = [
   	# Restful routing
     path('mangos/', Mangos.as_view(), name='mangos'),
