@@ -18,6 +18,11 @@ import dj_database_url
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
+# DIGITAL OCEAN DEPLOYMENT GUIDE 
+# https://docs.digitalocean.com/tutorials/app-deploy-django-app/
+# digital ocean secret key generation
+from django.core.management.utils import get_random_secret_key
+
 # Determine if we are on local or production
 if os.getenv('ENV') == 'development':
   # If we are on development, use the `DB_NAME_DEV` value
@@ -27,8 +32,8 @@ if os.getenv('ENV') == 'development':
       'ENGINE': 'django.db.backends.postgresql',
       'NAME': DB_NAME,
   }
-  # Set debug to true
-  DEBUG = True
+  # Set debug to true/ from digital ocean
+  DEBUG =  os.getenv("DEBUG", "False") == "True"
   # Only allow locally running client at port 7165 for CORS
   CORS_ORIGIN_WHITELIST = ['http://localhost:7165']
 else:
@@ -41,14 +46,32 @@ else:
   CORS_ORIGIN_WHITELIST = [
     os.getenv('CLIENT_ORIGIN')
   ]
+  
+#  DIGITAL OCEAN dev mode
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 # Default database as defined above depending on development
 # or production environment
-DATABASES = {
-    'default': DB
-}
+# DATABASES = {
+#     'default': DB
+# }
+
+# Digital ocearn replaces the above statement with the following:
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -58,7 +81,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # This uses either a .env key or Heroku config var called SECRET
-SECRET_KEY = os.getenv('SECRET')
+# SECRET_KEY = os.getenv('SECRET')
+
+# digital ocean get random key
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # Application definition
 
@@ -150,7 +176,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+# from digital ocean
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

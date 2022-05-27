@@ -1,0 +1,4 @@
+# from digital ocean
+# https://docs.digitalocean.com/tutorials/app-deploy-django-app/
+db.sqlite3
+*.pyc
